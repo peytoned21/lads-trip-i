@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lads Trip I — Gulf Shores, Alabama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gulf-deep:    #0d2b35;
+  --gulf-mid:     #1a4a5c;
+  --gulf-bright:  #2e7d96;
+  --gulf-pale:    #a8d4df;
+  --sand:         #f2e8d9;
+  --sand-dark:    #e0ceb8;
+  --warm-white:   #faf6f0;
+  --ink:          #1c1510;
+  --ink-mid:      #3d342a;
+  --ink-soft:     #5c4f42;
+  --amber:        #c47a2e;
+  --amber-light:  #e09a4e;
+  --amber-pale:   #f0c88a;
+  --rule:         #c8b89a;
+  --rule-light:   #e4d8c4;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--warm-white);
+  color: var(--ink-mid);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 20px;
+  line-height: 1.85;
+  overflow-x: hidden;
+}
+
+/* PROGRESS */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gulf-bright), var(--amber));
+  z-index: 999;
+  transition: width 0.15s linear;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--gulf-deep);
+}
+
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(46,125,150,0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 60%, rgba(196,122,46,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 20%, rgba(168,212,223,0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #061820 0%, #0d2b35 30%, #1a4a5c 65%, #0d2b35 100%);
+  animation: skyShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes skyShift {
+  0%   { filter: brightness(1) hue-rotate(0deg); }
+  100% { filter: brightness(1.08) hue-rotate(5deg); }
+}
+
+.hero-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 200px 200px, 150px 150px, 100px 100px;
+  background-position: 0 0, 50px 80px, 25px 40px;
+  opacity: 0.4;
+  animation: starTwinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes starTwinkle {
+  0%   { opacity: 0.3; }
+  100% { opacity: 0.55; }
+}
+
+.hero-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 80px;
+}
+
+.wave svg { width: 100%; height: 100%; }
+
+.wave-1 { animation: waveMove 8s linear infinite; opacity: 0.15; bottom: 10px; }
+.wave-2 { animation: waveMove 12s linear infinite reverse; opacity: 0.1; bottom: 20px; }
+.wave-3 { animation: waveMove 16s linear infinite; opacity: 0.2; bottom: 0; }
+
+@keyframes waveMove {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.hero-pre {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--amber-pale);
+  opacity: 0;
+  animation: riseIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.4s forwards;
+  margin-bottom: 1.8rem;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.9;
+  color: var(--warm-white);
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: riseIn 1.4s cubic-bezier(0.22,1,0.36,1) 0.6s forwards;
+}
+
+.hero-title .line-2 {
+  font-style: italic;
+  color: var(--amber-light);
+  display: block;
+}
+
+.hero-title .numeral {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-style: normal;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.3em;
+  display: block;
+  margin-top: 0.3em;
+  font-weight: 400;
+}
+
+.hero-divider {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, var(--amber-light), transparent);
+  margin: 2rem auto;
+  opacity: 0;
+  animation: riseIn 1s ease 1s forwards;
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(250,246,240,0.6);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  animation: riseIn 1s ease 1.2s forwards;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  opacity: 0;
+  animation: riseIn 1s ease 2s forwards;
+}
+
+.scroll-cue-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.scroll-cue-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+  margin: 0 auto;
+  animation: pulseDown 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseDown {
+  0%, 100% { transform: scaleY(0.8); opacity: 0.3; }
+  50%       { transform: scaleY(1.1); opacity: 0.7; }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ARTICLE */
+.article {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 5rem 2.5rem 6rem;
+}
+
+/* OPENER */
+.opener {
+  text-align: center;
+  padding-bottom: 4rem;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.opener-location {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.opener-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.opener-quote strong { font-weight: 700; }
+
+/* PROSE */
+p {
+  margin-bottom: 1.7rem;
+  font-size: 1.05rem;
+  color: var(--ink-mid);
+  font-weight: 300;
+}
+
+p:last-child { margin-bottom: 0; }
+
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 5.2rem;
+  font-weight: 900;
+  line-height: 0.82;
+  float: left;
+  margin: 0.04em 0.06em 0 0;
+  color: var(--gulf-mid);
+}
+
+.so {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.hl {
+  background: linear-gradient(180deg, transparent 65%, rgba(196,122,46,0.25) 65%);
+  padding-bottom: 1px;
+}
+
+/* DIVIDERS */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 3.5rem 0;
+}
+.rule::before,
+.rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule-light);
+}
+.rule-glyph {
+  font-size: 0.75rem;
+  color: var(--amber);
+  letter-spacing: 0.3em;
+  flex-shrink: 0;
+}
+
+/* DAY HEADERS */
+.day-header {
+  margin: 5rem 0 2.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.day-header::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, var(--rule));
+  margin: 0 auto 2rem;
+}
+
+.day-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.day-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.day-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.day-rule {
+  width: 30px;
+  height: 2px;
+  background: var(--amber);
+  margin: 1.2rem auto 0;
+}
+
+/* PULL QUOTES */
+.pullquote {
+  position: relative;
+  margin: 4rem -3rem;
+  padding: 3rem 3.5rem;
+  background: var(--gulf-deep);
+  overflow: hidden;
+}
+
+.pullquote::before {
+  content: '\201C';
+  position: absolute;
+  top: -2rem;
+  left: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 12rem;
+  line-height: 1;
+  color: rgba(46,125,150,0.15);
+  pointer-events: none;
+}
+
+.pullquote::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--amber), var(--gulf-bright));
+}
+
+.pullquote p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--warm-white);
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+/* CODA */
+.coda {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--rule);
+  letter-spacing: 0.6em;
+  margin: 4rem 0;
+}
+
+/* ENDING */
+.ending {
+  text-align: center;
+  padding: 5rem 0 3rem;
+  border-top: 1px solid var(--rule-light);
+  margin-top: 5rem;
+}
+
+.ending-ornament {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--rule);
+  margin-bottom: 3rem;
+}
+
+.ending-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 3rem;
+}
+
+.ending-line {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-style: italic;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.ending-line.big {
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: var(--gulf-mid);
+  margin-top: 0.5rem;
+}
+
+.ending-wave {
+  font-size: 2rem;
+  display: block;
+  margin-top: 2rem;
+  animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50%       { transform: translateY(-10px) rotate(8deg); }
+}
+
+/* FOOTER */
+footer {
+  background: var(--gulf-deep);
+  color: rgba(250,246,240,0.25);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+}
+
+/* SCROLL ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+              transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-slow { transition-duration: 1.4s; }
+
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  .article { padding: 4rem 1.5rem 5rem; }
+  .pullquote { margin: 3rem -1.5rem; padding: 2.5rem 2rem; }
+  .pullquote::before { font-size: 8rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-sky"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-grain"></div>
+
+  <div class="hero-waves">
+    <div class="wave wave-3">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1350,20 1440,40 L1440,80 L0,80 Z" fill="rgba(250,246,240,0.08)"/>
+      </svg>
+    </div>
+    <div class="wave wave-1">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,50 C240,20 480,70 720,50 C960,30 1200,65 1440,50 L1440,80 L0,80 Z" fill="rgba(250,246,240,0.05)"/>
+      </svg>
+    </div>
+    <div class="wave wave-2">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C300,60 600,10 900,35 C1100,50 1300,25 1440,35 L1440,80 L0,80 Z" fill="rgba(250,246,240,0.06)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-pre">Gulf Shores, Alabama &nbsp;·&nbsp; March 2026</p>
+    <h1 class="hero-title">
+      The Lads
+      <span class="line-2">Trip</span>
+      <span class="numeral">I</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">A story about fifteen men, four days,<br>and the deliberate act of showing up</p>
+  </div>
+
+  <div class="hero-scroll-cue">
+    <span class="scroll-cue-text">Read</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<article class="article">
+
+  <div class="opener reveal reveal-slow">
+    <span class="opener-location">A Personal Essay</span>
+    <p class="opener-quote">
+      <strong>"The most important thing a man can do is show up."</strong><br>
+      Not show up perfect. Not show up with the right words<br>
+      or the right clothes or the right plan. Just show up.
+    </p>
+  </div>
+
+  <div class="reveal">
+    <p class="drop-cap">My grandmother used to say that the most important thing a man can do is show up. Not show up perfect, not show up with the right words or the right clothes or the right plan, just show up. Be there. Let the people who matter to you know that when it counted, you got in the car.</p>
+    <p>Or the plane.</p>
+    <p>Or, in one particular case, a Tesla Cybertruck that nobody ordered and everyone had opinions about.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>It started, the way most things worth doing start, with one man deciding enough was enough.</p>
+    <p>Peyton had been thinking about it for a while. Not this specific trip, not this specific house, but the idea of it — the gathering, the refusal, the deliberate act of saying that the years were not going to take this from them without a fight. He had the friends. He had fifteen years of history with them. What he needed was a house.</p>
+    <p>He found one on the Alabama Gulf Coast. Twelve bedrooms. Beachfront. A heated pool the color of the Caribbean. A tiki bar on the deck facing the Gulf of Mexico like a sentry post at the edge of everything. He called it what it was: <span class="so">The Lads Trip I.</span></p>
+    <p>That Roman numeral sitting at the end of the name like a declaration, or a promise, or a dare. Fifteen men said yes. They had known each other for more than fifteen years and they came from different directions the way they always do now — because that is what your late thirties accomplish quietly and without asking permission. They scatter the people you love across the map and leave you with a phone in your pocket that buzzes with birthday greetings and can never quite replace the thing it replaced.</p>
+    <p>So Peyton booked the house and fourteen men said yes and one man said yes from New York, which is the longest yes of all.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p><span class="so">Peyton arrived in the Cybertruck.</span></p>
+    <p>This requires some explanation.</p>
+    <p>It started with a tree. When one fell on Peyton's roof it set into motion a chain of events that would end, five hundred miles south, with a vehicle that looked like it had been designed by someone who had strong opinions about the future and no particular interest in the present. The repair crew came to fix the roof. Peyton, navigating the chaos of workmen in and around his house, backed his car into the pillar in his carport. He will tell you, if you ask him, that he could have avoided this. He is correct. He did not avoid it.</p>
+    <p>The car went to the Tesla service center. Peyton went to Avis. The Avis rental died. <span class="hl">This is not a metaphor. The car simply stopped working.</span> Avis suggested the airport. Peyton called Tesla instead. The service center had one loaner.</p>
+    <p>There was a pause of the kind that precedes information the other person is not sure how to deliver.</p>
+    <p>It was a Cybertruck.</p>
+    <p>He drove it five hours south with Nathan and Trey in the car — witnesses to all of it, which meant it was already a story before they crossed the state line. He arrived at 1477 West Beach Boulevard and did the only thing a man can do when the universe has handed him a Cybertruck against his will: he parked it diagonally in the driveway, positioned it so that when the boys pulled in it was the first thing they saw, and committed to the bit completely.</p>
+    <p>The celebration was immediate. The mockery was louder. Both were sincere. The line between celebration and mockery among men who have known each other fifteen years is so thin it barely exists, and crossing it in either direction is a form of love. It was photographed in the Aqua Vista driveway. It was photographed later in the Flora-Bama parking lot, where it sat against the backdrop of one of the oldest honky tonks in America like a piece of modern art that nobody commissioned and everyone had feelings about.</p>
+  </div>
+
+  <!-- THURSDAY -->
+  <div class="day-header reveal">
+    <span class="day-eyebrow">Thursday · March 19</span>
+    <div class="day-name">The Arrival</div>
+    <div class="day-subtitle">Pizza, Georgia basketball, and one man's secret</div>
+    <div class="day-rule"></div>
+  </div>
+
+  <div class="reveal">
+    <p>The group converged on Aqua Vista from every direction on a Thursday afternoon in late March. Bags went upstairs fast. Beers came out faster.</p>
+    <p>They came from everywhere. Peyton, Nathan, and Trey from Atlanta in the Cybertruck. Dustin, Kunal, and Miguel in a separate car, which was probably the right call. Mack and Kevin from Birmingham — they had picked up the pizza on the way in, which is the kind of thing that reveals a person. Gerry, Mike Yang, and John Tolliver had flown into Pensacola and were already there, already at the tiki bar, already in the best chairs. Chris Jones had flown down from Thomasville — not commercially, Chris had a pilot — and arrived as if distance were a detail rather than an obstacle.</p>
+    <p>And then there was Connor.</p>
+    <p>Connor had flown down from New York. Of all fifteen men, he had the furthest to come, and he came anyway. He walked into Aqua Vista and found his people standing around an enormous kitchen island covered in Crico's pizza boxes, which is about as good an arrival as a man can hope for.</p>
+    <p>What Connor had not told anyone was that Caroline was pregnant. That was his news to carry, and so he carried it — into the house, through the evening, quietly. And then sometime that night the message came through. Caroline was in the hospital. Not for the pregnancy — for something else, something that arrived without warning the way frightening things do, on a Thursday evening in late March when her husband was five hundred miles away eating pizza with his oldest friends. Connor got the message and went to bed knowing that Friday morning was going to look different than he had planned.</p>
+    <p>The rest of the boys did not know any of this. They ate pizza and drank beer and went to bed feeling, for the first time in too long, like themselves.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>The Gulf Shores Squares game was already live before the first tip-off.</p>
+    <p>The short version: a ten-by-ten grid, one hundred squares, forty tournament games over four days, thirty-five dollars per win, a slush pot that started at one hundred dollars and grew all weekend toward a Sunday morning reckoning that nobody could fully calculate and everybody was quietly thinking about.</p>
+    <p>The Georgia Bulldogs were everyone's in the way only your team can be. Fifteen men settled into the theater room and watched Georgia get absolutely destroyed by Saint Louis, one of whose players was — and this detail was carried like a stone in a shoe for the remainder of the weekend — among the least aesthetically gifted athletes any of them had ever witnessed. He played beautifully. This was offensive on a level that transcended basketball.</p>
+    <p>Georgia lost. The squares paid out their first winner within the hour. The boys had a few more beers and went to bed.</p>
+    <p><span class="so">Connor went to bed knowing he had one night left.</span></p>
+  </div>
+
+  <!-- FRIDAY -->
+  <div class="day-header reveal">
+    <span class="day-eyebrow">Friday · March 20</span>
+    <div class="day-name">The Golf, the Pilot & the Boil</div>
+    <div class="day-subtitle">Mark and his buckets. The tournament was saved.</div>
+    <div class="day-rule"></div>
+  </div>
+
+  <div class="reveal">
+    <p>Friday morning broke clean and blue. The golfers dressed and moved toward the door. Connor packed his bag.</p>
+    <p>He said his goodbyes in the way that goodbyes happen in a house of fifteen men on a Friday morning — with more weight than anyone puts into words. He had been there for one night. Pizza and the Georgia game and cold beers and the first electricity of fifteen men finding each other again. One night.</p>
+    <p>He drove to Mobile. He flew back to New York.</p>
+    <p>The rest of the boys went to Kiva Dunes.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>Mack is the golfer. He had organized the competition into a Ryder Cup format — Team USA against Team Georgia, the division drawn along clear lines. Team Georgia was the men who had stayed, Dustin and the others whose roots had held, who played with the conviction of men on home soil. Team USA was the ones who had gone elsewhere. Mack ran that side with the quiet confidence of a man who put the whole thing together and intended to win it.</p>
+    <p>And then Kunal and Miguel got drunk.</p>
+    <p>Not together — separately, simultaneously, through the specific comedy of two men who had the same idea without telling each other. Each of them, independently, ordered a six pack on the golf course. Neither knew the other had done it. They discovered this somewhere around the third hole. A twelve pack between two men on a Friday morning golf course in Alabama is not a recipe for restraint. The round continued. The scorecard became theoretical.</p>
+    <p>After the round they settled into the nineteenth hole, and that is where it happened. One of the boys asked for a Pilsner. The bartender did not know what a Pilsner was. Chris Jones asked to speak to the bartender. The bartender informed him that she was the bartender. The conversation that followed has been described in various ways, but all accounts agree it was memorable.</p>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>It was a private pilot with ping pong balls. The tournament was saved.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Chris Jones is from Thomasville, Georgia. He had a pilot. At some point in the preparation for beer pong it was discovered that there were no ping pong balls. No Solo cups. Kevin and Peyton had just finished building the bracket on their phones using AI — with the seriousness the moment demanded — and there was already chatter that Peyton had arranged things favorably for himself. He and Chris Jones had received a bye. Peyton denied any wrongdoing. <span class="hl">Suspicion is the price of competence.</span></p>
+    <p>None of it mattered without ping pong balls.</p>
+    <p>Chris called his pilot. The pilot procured ping pong balls and Solo cups and brought them to Gulf Shores. When he knocked on the door everyone thought it was DoorDash. It was not DoorDash. It was a private pilot with ping pong balls.</p>
+    <p>The tournament was saved.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>But first, the pool.</p>
+    <p>The Friday afternoon pool at Aqua Vista in the golden hour is the photograph someone will frame and that fifteen men will look at in November and feel something move through them that is hard to name. The heated water bright blue against the white sand and the Gulf beyond. Cans on the pool coping, drinks in hand, guys at the tiki bar and guys in the water and guys in the chairs looking at the Gulf with the expressions of men who have remembered, at least for this afternoon, what they are sustaining themselves for.</p>
+    <p>Nick Thompson was in the pool with a beer in his hand and the expression of a man who has arranged his life to arrive at exactly this moment and found the arrangement satisfactory. Nick does his own thing. He is the man in the gold sunglasses sitting in the shallows with a cold can, staring at the horizon. He is the man raising his beer toward the camera like a toast that includes everyone and everything within eyesight.</p>
+    <p>Mike Barry had driven in from Nashville that day — five hours from Tennessee, arriving just in time for the pool and everything that followed. Mike Barry and Nick Thompson have history between them. They were working something out that the weekend wasn't going to fix. But they were there, in the same house, on the same trip.</p>
+    <p><span class="so">Sometimes that is how it starts.</span></p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p><span class="so">Mark arrived at six o'clock.</span></p>
+    <p>Mark is from the 5 O'Clock Seafood Boil Service. He came in wearing an orange apron over a teal shirt, blue sunglasses pushed up on his head, grinning the grin of a man who knows exactly what he is about to do to a kitchen. Within minutes the house smelled like the Gulf itself had decided to come inside.</p>
+    <p>The buckets were white and industrial and numerous. Chris Jones looked at them and asked: were those buckets food grade?</p>
+    <p>Mark said yes.</p>
+    <p>Chris said food grade means safe for storage. Not necessarily for cooking.</p>
+    <p><span class="so">Mark considered this.</span></p>
+    <p>The matter was absorbed into the goodwill of the evening. The microplastics jokes began immediately and did not stop. In the days after the trip the boys began reporting gastrointestinal consequences they attributed, with complete certainty, to Mark's buckets. John Tolliver — a doctor, with the vocabulary to match — made his case in the group chat in clinical detail. A week later he was still at it.</p>
+    <p>Mark's food was extraordinary. The crab legs. The shrimp. The crawfish and sausage and corn. At eight o'clock on a Friday night fifteen men sat down to eat together on the Alabama coast and nobody was anywhere else.</p>
+    <p>They ate until there was nothing left.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>The beer pong tournament began when the meal ended.</p>
+    <p>The bracket was on the table. The red Solo cups arranged. The bye controversy unresolved. And then Trey Foxall stepped up with a broken arm — broken at home, before the trip, from tripping over something in his own house — and proceeded to throw with it anyway, round after round, cup after cup, deep into the bracket alongside John Tolliver.</p>
+    <p>They lost in the finals to Mike Barry and Gerry.</p>
+    <p>Mike Barry had driven five hours from Nashville, arrived Friday, and won the beer pong tournament. The house stayed up late celebrating and mourning in equal measure.</p>
+  </div>
+
+  <!-- SATURDAY -->
+  <div class="day-header reveal">
+    <span class="day-eyebrow">Saturday · March 21</span>
+    <div class="day-name">The Boat, the Golf & Flora-Bama</div>
+    <div class="day-subtitle">The last night. The one that mattered.</div>
+    <div class="day-rule"></div>
+  </div>
+
+  <div class="reveal">
+    <p>Saturday split them, as Saturdays should.</p>
+    <p>Half the group went to Cotton Creek at Craft Farms. John Tolliver had described it in advance as having more water than the mighty Pacific. He was not wrong. Dustin and Team Georgia went out with the conviction of men on home soil. Mack and Team USA went out with the confidence of men with something to prove.</p>
+    <p>Mike Yang and Chris Jones got drunk at Cotton Creek.</p>
+    <p>Team USA won the Ryder Cup. Mack had the scorecards.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>The other half went to the water.</p>
+    <p>Nick Thompson captained the boat. His own thing, on Saturday morning, was pointing a rented boat toward the open Gulf. What was out there was Pirates Cove — Bushwhackers, sunshine, Peyton's Mojito Zyns, and Nick driving fast when the mood called for it and trolling when it didn't.</p>
+    <p>Nobody was anywhere else.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>By early afternoon everyone was back at the same place — the tiki bar, the pool deck, the beachfront stretch of Aqua Vista — sunburned and telling each other about the morning. The golfers told the boaters about Cotton Creek. The boaters told the golfers about Pirates Cove. Nobody was listening because everybody was talking.</p>
+    <p>The afternoon pool on Saturday had a different quality than Friday's. It knew it was the last one. The tournament games were on. The squares were in their final hours. The slush pot had grown to a number worth gathering around on Sunday morning, though nobody knew yet whose name would be on it. Nobody knew yet what Connor was going to text in two days. Nobody knew yet about the girls.</p>
+    <p>At seven-thirty the black Ford Transit pulled into the Aqua Vista driveway, the COAST medallion on the grille catching the last of the light. They piled in. Yang found a seat and was asleep before they hit the highway. The rest of them talked around him the way you talk around a sleeping friend. The door closed. They went east toward the Florida line.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>The Flora-Bama Yacht Club sits across Perdido Key Drive from the Flora-Bama itself, and it is where the group had dinner. String lights. Yellow shade sails. Sand underfoot. Fourteen men at picnic tables, laughing in the way men laugh on the last night of something good. Nobody was thinking about Monday.</p>
+    <p>Then they crossed the street.</p>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>The room went quiet for a second and then made the noise rooms make when something feels exactly right.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Flora-Bama has been open since 1964. It has absorbed sixty years of Saturday nights and is covered in the evidence — signed dollar bills and stickers and the handwriting of strangers on every flat surface. The floors are worn. The bar is dark. The music is live, always live.</p>
+    <p>They played early 2000s music, which was correct.</p>
+    <p>Kevin and Nick found each other somewhere in the red light of the bar. The photo that exists of this moment — the two of them locked in a hug, eyes closed, completely in it — is the photograph that goes on the wall.</p>
+    <p>And then somebody played Hinder.</p>
+    <p><span class="so">Lips of an Angel.</span></p>
+    <p>A meme went around the table approximately immediately and everyone looked at each other and nodded. They had been to Flora-Bama. Flora-Bama had been magnificent. Hinder had played.</p>
+    <p>The first group left at midnight. The second stayed until one.</p>
+    <p>Back at the house, Tolliver and Gerry found themselves in a long conversation about whether doctors are paid appropriately relative to teachers. Tolliver made his case. Gerry made his. It went nowhere conclusive, which was the point.</p>
+    <p>And then Peyton and Nathan found their corner of Aqua Vista. The Tomorrowland 2012 sets pulled up on the screen. The crowd going insane. The music doing what that music does. A version of themselves that was younger and did not yet know how fast it would go. They watched for a while. Didn't say much.</p>
+    <p>They went to bed.</p>
+  </div>
+
+  <!-- SUNDAY -->
+  <div class="day-header reveal">
+    <span class="day-eyebrow">Sunday · March 22</span>
+    <div class="day-name">Getaway Day</div>
+    <div class="day-subtitle">Kevin had the announcer voice ready.</div>
+    <div class="day-rule"></div>
+  </div>
+
+  <div class="reveal">
+    <p>Sunday morning smelled like coffee and sunscreen and the bittersweetness of a bag that needs to be packed. Someone made coffee. Someone found aspirin. The house that had been a world for four days was becoming just a house again.</p>
+    <p>Kevin had the announcer voice ready.</p>
+    <p>He drew the name and put the voice on it the way only Kevin can, and the name he called was Connor's.</p>
+    <p>Connor. Who had flown from New York. Who had arrived Thursday carrying news he was keeping to himself, gotten a message that night that changed everything, said his goodbyes Friday morning, and flown home because his wife was in the hospital and that is what you do. Who had been there for one night. Who had missed all of it — the golf and the pool and the boil and the buckets and the beer pong and the broken arm and the private pilot and the boat and the Bushwhackers and the Mojito Zyns and the tiki bar and Flora-Bama and the hug in the red light and Lips of an Angel and Tolliver's case for doctors and Yang asleep on the bus and the Tomorrowland videos and all of it.</p>
+    <p><span class="so">His name.</span></p>
+    <p><span class="hl">The room went quiet for a second and then made the noise rooms make when something feels exactly right.</span> The slush pot went to New York.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>The bags came down. The Cybertruck was loaded and pointed north toward Atlanta. The goodbyes lasted a beat longer than usual. Then the cars left, one by one, and the house went quiet.</p>
+  </div>
+
+  <div class="coda reveal">· · · I · · ·</div>
+
+  <div class="reveal">
+    <p>Two days later a message came through the group chat.</p>
+    <p><span class="so">Connor.</span></p>
+    <p>Caroline was home from the hospital. She was okay. They were expecting two little girls.</p>
+    <p>This was the first anyone knew. He had kept it through the drive down, through Thursday night, through the message that changed everything, through the Friday morning goodbye, through all of it.</p>
+    <p><span class="so">Twin girls.</span></p>
+    <p>Fifteen men read that in fifteen separate locations and felt something move through them. Connected to the trip and the pizza and the boil and the beer pong and the boat and Flora-Bama and the raffle on Sunday morning. But also to something older. To the fifteen years. To the miles. To all of it.</p>
+    <p>Connor had come the furthest. Stayed the shortest. Left the earliest. Won the squares. And was going home to twin daughters who do not yet know that they have fifteen uncles who will show up for them — the way their father showed up, the way these men have always shown up for each other. Imperfectly. Expensively. Sometimes in a vehicle nobody ordered. From distances that require a private pilot. With a broken arm. With gold sunglasses and a cold beer and absolutely nowhere else to be.</p>
+  </div>
+
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
+
+  <div class="reveal">
+    <p>The Gulf does not care about any of this.</p>
+    <p>It was there before these men and it will be there after. It held them for four days in March and released them back to their lives, which were waiting.</p>
+    <p>The Roman numeral on the name was not hubris. It was a statement of intent.</p>
+  </div>
+
+  <div class="ending reveal reveal-slow">
+    <div class="ending-ornament">fin</div>
+    <div class="ending-lines">
+      <div class="ending-line">Connor's girls are coming.</div>
+      <div class="ending-line">The Gulf is waiting.</div>
+      <div class="ending-line big">See you next year, lads.</div>
+    </div>
+    <span class="ending-wave">🌊</span>
+  </div>
+
+</article>
+
+<footer>
+  The Lads Trip I &nbsp;·&nbsp; Gulf Shores, Alabama &nbsp;·&nbsp; March 2026
+</footer>
+
+<script>
+const bar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
