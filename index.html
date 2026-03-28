@@ -31,26 +31,92 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--warm-white);
+  background-color: var(--warm-white);
   color: var(--ink-mid);
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: 20px;
   line-height: 1.85;
   overflow-x: hidden;
+  /* subtle grain on body */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
-/* PROGRESS */
+/* ── PROGRESS ── */
 #progress {
   position: fixed;
   top: 0; left: 0;
   height: 2px;
   width: 0%;
   background: linear-gradient(90deg, var(--gulf-bright), var(--amber));
-  z-index: 999;
-  transition: width 0.15s linear;
+  z-index: 1000;
+  transition: width 0.1s linear;
 }
 
-/* HERO */
+/* ── STICKY DAY NAV ── */
+#day-nav {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#day-nav.visible { opacity: 1; }
+
+.nav-dot {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  text-decoration: none;
+  flex-direction: row-reverse;
+}
+
+.nav-dot-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rule);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-dot:hover .nav-dot-label,
+.nav-dot.active .nav-dot-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--amber);
+}
+
+.nav-dot-pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rule);
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-dot.active .nav-dot-pip {
+  background: var(--amber);
+  transform: scale(1.5);
+}
+
+.nav-dot:hover .nav-dot-pip {
+  background: var(--amber-light);
+}
+
+@media (max-width: 900px) { #day-nav { display: none; } }
+
+/* ── HERO ── */
 .hero {
   position: relative;
   width: 100%;
@@ -242,14 +308,14 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ARTICLE */
+/* ── ARTICLE ── */
 .article {
   max-width: 680px;
   margin: 0 auto;
   padding: 5rem 2.5rem 6rem;
 }
 
-/* OPENER */
+/* ── OPENER ── */
 .opener {
   text-align: center;
   padding-bottom: 4rem;
@@ -280,7 +346,7 @@ body {
 
 .opener-quote strong { font-weight: 700; }
 
-/* PROSE */
+/* ── PROSE ── */
 p {
   margin-bottom: 1.7rem;
   font-size: 1.05rem;
@@ -313,7 +379,7 @@ p:last-child { margin-bottom: 0; }
   padding-bottom: 1px;
 }
 
-/* DIVIDERS */
+/* ── DIVIDERS ── */
 .rule {
   display: flex;
   align-items: center;
@@ -334,7 +400,7 @@ p:last-child { margin-bottom: 0; }
   flex-shrink: 0;
 }
 
-/* DAY HEADERS */
+/* ── DAY HEADERS ── */
 .day-header {
   margin: 5rem 0 2.5rem;
   text-align: center;
@@ -388,11 +454,11 @@ p:last-child { margin-bottom: 0; }
   margin: 1.2rem auto 0;
 }
 
-/* PULL QUOTES */
+/* ── PULL QUOTES ── */
 .pullquote {
   position: relative;
-  margin: 4rem -3rem;
-  padding: 3rem 3.5rem;
+  margin: 4rem -4rem;
+  padding: 3rem 4.5rem;
   background: var(--gulf-deep);
   overflow: hidden;
 }
@@ -403,9 +469,9 @@ p:last-child { margin-bottom: 0; }
   top: -2rem;
   left: 1.5rem;
   font-family: 'Playfair Display', serif;
-  font-size: 12rem;
+  font-size: 14rem;
   line-height: 1;
-  color: rgba(46,125,150,0.15);
+  color: rgba(46,125,150,0.12);
   pointer-events: none;
 }
 
@@ -420,7 +486,7 @@ p:last-child { margin-bottom: 0; }
 
 .pullquote p {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
   font-style: italic;
   font-weight: 400;
   line-height: 1.5;
@@ -430,7 +496,7 @@ p:last-child { margin-bottom: 0; }
   margin: 0;
 }
 
-/* CODA */
+/* ── CODA ── */
 .coda {
   text-align: center;
   font-family: 'Cormorant Garamond', serif;
@@ -441,7 +507,7 @@ p:last-child { margin-bottom: 0; }
   margin: 4rem 0;
 }
 
-/* ENDING */
+/* ── ENDING ── */
 .ending {
   text-align: center;
   padding: 5rem 0 3rem;
@@ -492,7 +558,7 @@ p:last-child { margin-bottom: 0; }
   50%       { transform: translateY(-10px) rotate(8deg); }
 }
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer {
   background: var(--gulf-deep);
   color: rgba(250,246,240,0.25);
@@ -503,7 +569,7 @@ footer {
   letter-spacing: 0.2em;
 }
 
-/* SCROLL ANIMATIONS */
+/* ── SCROLL ANIMATIONS ── */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -518,8 +584,8 @@ footer {
 
 .reveal-slow { transition-duration: 1.4s; }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
+/* ── RESPONSIVE ── */
+@media (max-width: 780px) {
   .article { padding: 4rem 1.5rem 5rem; }
   .pullquote { margin: 3rem -1.5rem; padding: 2.5rem 2rem; }
   .pullquote::before { font-size: 8rem; }
@@ -529,6 +595,26 @@ footer {
 <body>
 
 <div id="progress"></div>
+
+<!-- STICKY DAY NAV -->
+<nav id="day-nav" aria-label="Chapter navigation">
+  <a class="nav-dot" href="#day-thursday" data-day="thursday">
+    <span class="nav-dot-label">Thursday</span>
+    <span class="nav-dot-pip"></span>
+  </a>
+  <a class="nav-dot" href="#day-friday" data-day="friday">
+    <span class="nav-dot-label">Friday</span>
+    <span class="nav-dot-pip"></span>
+  </a>
+  <a class="nav-dot" href="#day-saturday" data-day="saturday">
+    <span class="nav-dot-label">Saturday</span>
+    <span class="nav-dot-pip"></span>
+  </a>
+  <a class="nav-dot" href="#day-sunday" data-day="sunday">
+    <span class="nav-dot-label">Sunday</span>
+    <span class="nav-dot-pip"></span>
+  </a>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -574,6 +660,7 @@ footer {
 <!-- ARTICLE -->
 <article class="article">
 
+  <!-- OPENER -->
   <div class="opener reveal reveal-slow">
     <span class="opener-location">A Personal Essay</span>
     <p class="opener-quote">
@@ -583,6 +670,7 @@ footer {
     </p>
   </div>
 
+  <!-- OPENING PROSE -->
   <div class="reveal">
     <p class="drop-cap">My grandmother used to say that the most important thing a man can do is show up. Not show up perfect, not show up with the right words or the right clothes or the right plan, just show up. Be there. Let the people who matter to you know that when it counted, you got in the car.</p>
     <p>Or the plane.</p>
@@ -601,6 +689,7 @@ footer {
 
   <div class="rule reveal"><span class="rule-glyph">✦</span></div>
 
+  <!-- CYBERTRUCK -->
   <div class="reveal">
     <p><span class="so">Peyton arrived in the Cybertruck.</span></p>
     <p>This requires some explanation.</p>
@@ -613,7 +702,7 @@ footer {
   </div>
 
   <!-- THURSDAY -->
-  <div class="day-header reveal">
+  <div class="day-header reveal" id="day-thursday" data-section="thursday">
     <span class="day-eyebrow">Thursday · March 19</span>
     <div class="day-name">The Arrival</div>
     <div class="day-subtitle">Pizza, Georgia basketball, and one man's secret</div>
@@ -640,10 +729,10 @@ footer {
   </div>
 
   <!-- FRIDAY -->
-  <div class="day-header reveal">
+  <div class="day-header reveal" id="day-friday" data-section="friday">
     <span class="day-eyebrow">Friday · March 20</span>
     <div class="day-name">The Golf, the Pilot & the Boil</div>
-    <div class="day-subtitle">Mark and his buckets. The tournament was saved.</div>
+    <div class="day-subtitle">One night was all he got. The rest of the boys went to Kiva Dunes.</div>
     <div class="day-rule"></div>
   </div>
 
@@ -663,15 +752,17 @@ footer {
     <p>After the round they settled into the nineteenth hole, and that is where it happened. One of the boys asked for a Pilsner. The bartender did not know what a Pilsner was. Chris Jones asked to speak to the bartender. The bartender informed him that she was the bartender. The conversation that followed has been described in various ways, but all accounts agree it was memorable.</p>
   </div>
 
-  <div class="pullquote reveal">
-    <p>It was a private pilot with ping pong balls. The tournament was saved.</p>
-  </div>
+  <div class="rule reveal"><span class="rule-glyph">✦</span></div>
 
   <div class="reveal">
     <p>Chris Jones is from Thomasville, Georgia. He had a pilot. At some point in the preparation for beer pong it was discovered that there were no ping pong balls. No Solo cups. Kevin and Peyton had just finished building the bracket on their phones using AI — with the seriousness the moment demanded — and there was already chatter that Peyton had arranged things favorably for himself. He and Chris Jones had received a bye. Peyton denied any wrongdoing. <span class="hl">Suspicion is the price of competence.</span></p>
     <p>None of it mattered without ping pong balls.</p>
     <p>Chris called his pilot. The pilot procured ping pong balls and Solo cups and brought them to Gulf Shores. When he knocked on the door everyone thought it was DoorDash. It was not DoorDash. It was a private pilot with ping pong balls.</p>
     <p>The tournament was saved.</p>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>It was a private pilot with ping pong balls. The tournament was saved.</p>
   </div>
 
   <div class="rule reveal"><span class="rule-glyph">✦</span></div>
@@ -708,7 +799,7 @@ footer {
   </div>
 
   <!-- SATURDAY -->
-  <div class="day-header reveal">
+  <div class="day-header reveal" id="day-saturday" data-section="saturday">
     <span class="day-eyebrow">Saturday · March 21</span>
     <div class="day-name">The Boat, the Golf & Flora-Bama</div>
     <div class="day-subtitle">The last night. The one that mattered.</div>
@@ -745,10 +836,6 @@ footer {
     <p>Then they crossed the street.</p>
   </div>
 
-  <div class="pullquote reveal">
-    <p>The room went quiet for a second and then made the noise rooms make when something feels exactly right.</p>
-  </div>
-
   <div class="reveal">
     <p>Flora-Bama has been open since 1964. It has absorbed sixty years of Saturday nights and is covered in the evidence — signed dollar bills and stickers and the handwriting of strangers on every flat surface. The floors are worn. The bar is dark. The music is live, always live.</p>
     <p>They played early 2000s music, which was correct.</p>
@@ -762,11 +849,15 @@ footer {
     <p>They went to bed.</p>
   </div>
 
+  <div class="pullquote reveal">
+    <p>The room went quiet for a second and then made the noise rooms make when something feels exactly right.</p>
+  </div>
+
   <!-- SUNDAY -->
-  <div class="day-header reveal">
+  <div class="day-header reveal" id="day-sunday" data-section="sunday">
     <span class="day-eyebrow">Sunday · March 22</span>
     <div class="day-name">Getaway Day</div>
-    <div class="day-subtitle">Kevin had the announcer voice ready.</div>
+    <div class="day-subtitle">The name in the hat. The slush pot went to New York.</div>
     <div class="day-rule"></div>
   </div>
 
@@ -805,6 +896,7 @@ footer {
     <p>The Roman numeral on the name was not hubris. It was a statement of intent.</p>
   </div>
 
+  <!-- ENDING -->
   <div class="ending reveal reveal-slow">
     <div class="ending-ornament">fin</div>
     <div class="ending-lines">
@@ -822,22 +914,63 @@ footer {
 </footer>
 
 <script>
+// ── PROGRESS BAR ──
 const bar = document.getElementById('progress');
 window.addEventListener('scroll', () => {
   const h = document.documentElement;
   bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
 }, { passive: true });
 
-const observer = new IntersectionObserver((entries) => {
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      observer.unobserve(e.target);
+      revealObserver.unobserve(e.target);
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── STICKY NAV ──
+const dayNav = document.getElementById('day-nav');
+const sections = document.querySelectorAll('[data-section]');
+const dots = document.querySelectorAll('.nav-dot');
+
+// Show nav after scrolling past hero
+const heroEl = document.querySelector('.hero');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    dayNav.classList.toggle('visible', !e.isIntersecting);
+  });
+}, { threshold: 0 });
+navObserver.observe(heroEl);
+
+// Highlight active day
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const section = e.target.dataset.section;
+      dots.forEach(d => {
+        d.classList.toggle('active', d.dataset.day === section);
+      });
+    }
+  });
+}, { threshold: 0, rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+// Smooth scroll on dot click
+dots.forEach(dot => {
+  dot.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(dot.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
 </body>
 </html>
